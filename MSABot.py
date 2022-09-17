@@ -101,8 +101,8 @@ async def pollTime(): # REFRESHING EVERY MINUTE TO CHECK IF CURRENT TIME IS A PR
     formattedAsrTime = formatTime(asr)
     formattedMaghribTime = formatTime(maghrib)
     formattedIshaTime = formatTime(isha)
-    #b = time(00, 25, 50)
-    #formattedB = b.strftime("%I:%M %p")
+    b = time(12, 55, 50)
+    formattedB = b.strftime("%I:%M %p")
     #print(formattedB)
     #print(formattedFajrTime)
     #print(formattedDhuhrTime)
@@ -111,16 +111,17 @@ async def pollTime(): # REFRESHING EVERY MINUTE TO CHECK IF CURRENT TIME IS A PR
     #print(formattedIshaTime)
     channel = client.get_channel(prayerChannel)
     if(currentFormattedTime == formattedFajrTime):
-        await channel.send("<@&prayerRole> It's time to pray FAJR!")
+        await channel.send("<@&1019519460849242134> It's time to pray FAJR!")
     if(currentFormattedTime == formattedDhuhrTime):
-        await channel.send("<@&prayerRole> It's time to pray DHUHR!")
+        await channel.send("<@&1019519460849242134> It's time to pray DHUHR!")
     if(currentFormattedTime == formattedAsrTime):
-        await channel.send("<@&prayerRole> It's time to pray ASR!")
+        await channel.send("<@&1019519460849242134> It's time to pray ASR!")
     if(currentFormattedTime == formattedMaghribTime):
-        await channel.send("<@&prayerRole> It's time to pray MAGHRIB!")
+        await channel.send("<@&1019519460849242134> It's time to pray MAGHRIB!")
     if(currentFormattedTime == formattedIshaTime):
-        await channel.send("<@&prayerRole> It's time to pray ISHA!")
-
+        await channel.send("<@&1019519460849242134> It's time to pray ISHA!")
+    if(currentFormattedTime == formattedB):
+        await channel.send("<@&1019519460849242134> It's time to pray test!")
 refreshResponse.start() # START REFRESH THREAD
 pollTime.start() # START POLLING THREAD 
 client.run(token)
