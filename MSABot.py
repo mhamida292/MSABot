@@ -1,9 +1,8 @@
-# MSABOT v0.91 (UNFINISHED)
+# MSABOT v0.92 (UNFINISHED)
 # TO DO LIST
     # ADD COMMAND FOR LISTING PRAYER TIME (WITH LOCATION)
-    # FIX EXPECTED BUGS TO COME WITH REFRESH PERIOD 
-    # ADD INTERESTING COMMANDS THAT COULD BE BENEFICIAL FOR USERS 
-    # HOST ON SERVER FOR MAX UP TIME
+    # FIX EXPECTED BUGS TO COME WITH REFRESH PERIOD (TENTATIVE DON'T KNOW IF IT WORKS YET)
+
 
 import discord
 from discord.ext import commands, tasks
@@ -68,7 +67,7 @@ async def prayertimes(ctx): # !prayertimes COMMAND
     await ctx.channel.send(f">>> **Prayer times on {date} in {loc}:** \nFajr: {formattedFajrTime} \nDhuhr: {formattedDhuhrTime} \
         \nAsr: {formattedAsrTime} \nMaghrib: {formattedMaghribTime} \nIsha: {formattedIshaTime}") 
 
-@tasks.loop(hours = 24) # REFRESHING RESPONSE FROM API ONCE A DAY 
+@tasks.loop(hours = 8) # REFRESHING RESPONSE FROM API ONCE A DAY 
 async def refreshResponse():    
     response = requests.get(f"https://dailyprayer.abdulrcs.repl.co/api/{city}")
     text = json.loads(response.text)
@@ -101,7 +100,7 @@ async def pollTime(): # REFRESHING EVERY MINUTE TO CHECK IF CURRENT TIME IS A PR
     formattedAsrTime = formatTime(asr)
     formattedMaghribTime = formatTime(maghrib)
     formattedIshaTime = formatTime(isha)
-    b = time(12, 55, 50)
+    b = time(16, 34, 50)
     formattedB = b.strftime("%I:%M %p")
     #print(formattedB)
     #print(formattedFajrTime)
@@ -111,17 +110,17 @@ async def pollTime(): # REFRESHING EVERY MINUTE TO CHECK IF CURRENT TIME IS A PR
     #print(formattedIshaTime)
     channel = client.get_channel(prayerChannel)
     if(currentFormattedTime == formattedFajrTime):
-        await channel.send("<@&1019519460849242134> It's time to pray FAJR!")
+        await channel.send("<@&1019519460849242134> Rise and shine! It’s time to pray Fajr. Have a blessed day inShaaAllah!")
     if(currentFormattedTime == formattedDhuhrTime):
-        await channel.send("<@&1019519460849242134> It's time to pray DHUHR!")
+        await channel.send("<@&1019519460849242134> It’s Dhur time! Time to strengthen your imaan and get closer to Allah!")
     if(currentFormattedTime == formattedAsrTime):
-        await channel.send("<@&1019519460849242134> It's time to pray ASR!")
+        await channel.send("<@&1019519460849242134> It’s Asr time! Take a break from what your doing and make sure your pray!!")
     if(currentFormattedTime == formattedMaghribTime):
-        await channel.send("<@&1019519460849242134> It's time to pray MAGHRIB!")
+        await channel.send("<@&1019519460849242134> It’s Maghrib time! It’s also better to pray in congregation. So pray together with your brothers/sisters!")
     if(currentFormattedTime == formattedIshaTime):
-        await channel.send("<@&1019519460849242134> It's time to pray ISHA!")
+        await channel.send("<@&1019519460849242134> Make sure you pray Isha before you head to bed. Hope you all had a great day!")
     if(currentFormattedTime == formattedB):
-        await channel.send("<@&1019519460849242134> It's time to pray test!")
+        await channel.send("<@&1019519460849242134> Test!")
 refreshResponse.start() # START REFRESH THREAD
 pollTime.start() # START POLLING THREAD 
 client.run(token)
